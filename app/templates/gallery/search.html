@@ -1,0 +1,270 @@
+{%extends "gallery/base.html"%} {%block content%}
+
+
+
+<style>
+    .imggg {
+        margin: 20px;
+        padding-left: 50px;
+        overflow-y: auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .card {
+        box-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.20);
+        margin-top: 4px;
+        margin-bottom: 4px;
+        display: block;
+        padding: 6px;
+        float: left;
+        width: 100%;
+        border: 2px solid transparent;
+    }
+
+.card-text{
+    font-size: 14px;
+}
+
+    .description-text {
+        font-size: 11px;
+        text-align: right;
+    }
+
+    .card:hover {
+        box-shadow: 0px 2px 12px 2px rgba(0, 0, 0, 0.40);
+        transition: all 0.3s;
+    }
+
+    .category-card {
+        height: 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .imagescards {
+        float: left;
+        margin: 2px;
+        object-fit: cover;
+    }
+
+    .imageitem {
+        height: 180px;
+        width: 180px;
+        object-fit: cover;
+    }
+
+
+    .category-card-div {
+        padding: 5px;
+        float: left;
+    }
+
+    .media-card-div {
+        padding: 5px;
+        float: left;
+    }
+
+    .media-card {
+        height: min-content;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .card-body {
+        padding: 4px;
+        width: 37vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        float: left;
+    }
+
+    @media only screen and (max-width: 239px) {
+        .category-card-div {
+            width: 100%;
+            font-size: 10px;
+        }
+
+        .media-card {
+        height: min-content;
+        display: flex;
+        flex-direction: column;
+    }
+
+.card-body{
+    width: 100%;
+}
+
+        .media-card-div {
+            width: 100%;
+        }
+
+        .imageitem {
+        height: 100%;
+        width: 100%;
+    }
+    .card-text{
+    font-size: 12px;
+}
+
+    .description-text {
+        font-size: 10px;
+    }
+
+    }
+
+    @media only screen and (min-width: 240px) {
+        .category-card-div {
+            width: 50%;
+            font-size: 12px;
+        }
+
+
+        .media-card-div {
+            width: 100%;
+        }
+
+        .imageitem {
+        height: 130px;
+        width: 130px;
+    }
+    
+    .card-text{
+    font-size: 12px;
+}
+
+    .description-text {
+        font-size: 10px;
+    }
+
+    }   @media only screen and (min-width: 768px) {
+      
+
+        .imageitem {
+        height: 180px;
+        width: 180px;
+    }
+    
+    .card-text{
+    font-size: 13px;
+}
+
+    .description-text {
+        font-size: 11px;
+    }
+
+    }
+
+    @media only screen and (min-width: 1024px) {
+        .category-card-div {
+            width: 33%;
+            font-size: 14px;
+        }
+
+        .media-card-div {
+            width: 50%;
+        }
+
+        .card-body {
+            width: 11vw;
+        }
+        
+    .card-text{
+    font-size: 14px;
+}
+
+    .description-text {
+        font-size: 11px;
+    }
+
+    }
+
+    @media only screen and (min-width: 1440px) {
+        .category-card-div {
+            width: 25%;
+        }
+
+
+        .card-text {
+            font-size: 18px;
+        }
+    }
+</style>
+
+
+
+<div class="wrapper">
+    {%include "gallery\sidenav.html"%} {%include "gallery\navbar.html"%}
+    <div id="content" style="width: 100%; padding-right: 4px;">
+        <h1 style="color: rgb(2, 2, 83);">Search Results for "<b> {{search}} </b>" :</h1>
+        <hr class="px-3">
+        <hr>
+        {%if categories|length == 0 and photos|length == 0 and videos|length == 0%}
+        <h1>&nbsp; Nothing here</h1>
+        {%endif%}
+
+        {%if categories|length != 0%}
+        <div style="display: flow-root;">
+            <h3>&nbsp;Results in Categories :</h3>
+            {%for category in categories%}
+            <div class="category-card-div">
+                <a href="{% url 'browse'%}?s={{category.id}}">
+                    <div class="category-card card">
+                        <div class="card-text"> {{category.name}}</div>
+                        <div class="description-text">In year : {{category.year}}</div>
+                    </div>
+                </a>
+            </div>
+            {%endfor%}
+        </div>
+        <hr>
+        {%endif%}
+
+        {%if photos|length != 0%}
+        <div style="display:flow-root;">
+            <h3>&nbsp;Photos results: </h3>
+            {%for photo in photos%}
+            <div class="media-card-div">
+                <a href="{{photo.image.url}}" target="_blank">
+                    <div class="media-card card">
+                        <div style="float: left;">
+                            <img class="imageitem" src="{{photo.thumbnail.url}}" alt="{{photo.name}}">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">{{photo.name}}</div>
+                            <div class="description-text">In : {{photo.year}}\{{photo.category}}</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {%endfor%}
+        </div>
+        <hr>
+        {%endif%}
+
+        {%if videos|length != 0%}
+        <div style="display:flow-root;">
+            <h3>&nbsp;Videos results: </h3>
+            {%for video in videos%}
+            <div class="media-card-div">
+                <a href="{{video.youtube_video_url}}" target="_blank">
+                    <div class="media-card card">
+                        <div style="float: left;">
+                            <img class="imageitem" src="{{video.videothumbs.url}}" alt="{{video.name}}">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">{{video.name}}</div>
+                            <div class="description-text">In : {{video.year}}\{{video.category}}</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {%endfor%}
+        </div>
+        <hr>
+        {%endif%}
+    </div>
+</div>
+{%endblock%}

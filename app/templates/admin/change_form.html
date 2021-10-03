@@ -1,0 +1,40 @@
+{% extends "admin/change_form.html" %} {% load static %} {% block extrahead %}
+{{ block.super }}
+<script src="{% static 'jss/jquery.min.js'%}"></script>
+<script type="text/javascript">
+$(function () {
+// inspect html to check id of category select dropdown.
+$(document).ready(function () {
+$.getJSON("/getcategory/", { id: $("select#id_year").val() }, function (j) {
+var options;
+if( j.length==0 ){
+    var options = '<option value="">No Categories, Choose another year</option>';
+}
+for (var i = 0; i < j.length; i++) {
+options +=
+'<option value="' + j[i].id + '">' + j[i].name + "</option>";
+}
+// inspect html to check id of subcategory select dropdown.
+$("select#id_category").html(options);
+});
+});
+
+$(document).on("change", "select#id_year", function () {
+$.getJSON("/getcategory/", { id: $(this).val() }, function (j) {
+var options;
+
+if( j.length==0 ){
+    var options = '<option value="">No Categories, Choose another year</option>';
+}
+
+for (var i = 0; i < j.length; i++) {
+options +=
+'<option value="' + j[i].id + '">' + j[i].name + "</option>";
+}
+// inspect html to check id of subcategory select dropdown.
+$("select#id_category").html(options);
+});
+});
+});
+</script>
+{% endblock %}

@@ -1,0 +1,206 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% block branding %}
+<a class="navbar-brand my-0 py-0 mx-0 px-0" href="https://www.iitr.ac.in/">&nbsp;<img id="brandimage"
+        style="width: auto; margin: 0px; padding: 0px; float: left;" src="{% static 'logo/logo.png'%}"></a>
+{% endblock %}
+{% block extrastyle %}
+
+<style>
+    div.breadcrumbs {
+        background-color: rgb(68 176 25);
+        color: white;
+    }
+
+    .toggle-nav-sidebar {
+        margin-top: 2px;
+        padding: 2px;
+        color: rgb(0, 0, 0);
+        background-color: rgb(255, 255, 255);
+        border: 2px solid rgb(255, 255, 255);
+    }
+
+    .toggle-nav-sidebar:hover {
+        background-color: rgb(255, 255, 255);
+        border: 2px solid rgb(228, 224, 224);
+    }
+
+    .module {
+        padding: 1px;
+    }
+
+    .dashboard #content {
+        width: 70%;
+    }
+
+    #content-related .module {
+        border: 2px solid rgb(150, 25, 252);
+    }
+
+    #content-related .module h2 {
+        background-color: rgb(150, 25, 252);
+        color: white;
+    }
+
+    #content>h1 {
+        font-weight: 300;
+        font-size: 42px;
+        padding: 3px;
+        color: rgb(248, 83, 7);
+
+    }
+
+    #header {
+        height: 3rem;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
+        text-shadow: 2px 2px 10px #00000020;
+
+    }
+
+    a.section:link,
+    a.section:visited {
+        font-size: 20px;
+    }
+
+    caption {
+        background-color: green;
+
+    }
+
+    #branding h1 {
+        font-size: 26px;
+        padding-left: 2px;
+        font-weight: 400;
+        color: rgb(0, 0, 0);
+        text-shadow: 2px 2px 10px #00000020;
+
+    }
+
+    #user-tools {
+        line-height: 1.00 !important;
+        font-weight: 400;
+        color: black;
+        text-shadow: 2px 2px 10px #00000020;
+    }
+
+    #header a:link,
+    #header a:visited {
+        font-weight: 400;
+        color: black;
+        text-shadow: 2px 2px 10px #00000020;
+
+    }
+
+
+    .app-app>table {
+        border: 2px solid rgba(49, 168, 2, 0.911);
+    }
+
+
+    .app-auth>table {
+        border: 2px solid rgb(252, 93, 19);
+    }
+
+    .app-app caption {
+        background-color: rgba(49, 168, 2, 0.911);
+
+    }
+
+    .app-auth caption {
+        background-color: rgb(252, 93, 19);
+
+    }
+
+    .app-app table th a {
+        font-size: 22px;
+
+        font-weight: 400;
+        color: rgba(49, 168, 2, 0.911);
+    }
+
+    table th {
+        vertical-align: middle;
+        height: 32px;
+    }
+
+    .app-auth table th a {
+
+        font-size: 22px;
+
+        font-weight: 400;
+        color: rgb(252, 93, 19);
+    }
+
+    table td {
+        vertical-align: middle;
+    }
+
+    #container>.main {
+        margin-top: 1px;
+    }
+
+    .object-tools a.addlink {
+        font-size: 18px;
+        background-color: rgb(252, 93, 19);
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .object-tools a:link,
+    .object-tools a:visited {
+        font-size: 16px;
+        background-color: rgb(9, 95, 2);
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    input[type="submit"],
+    button {
+        background-color: rgb(68 176 25);
+    }
+
+    #nav-sidebar .current-model {
+        background: #89e6386b;
+    }
+
+    td {
+        font-size: 17px;
+    }
+
+    @media (max-width: 360px) {
+        #brandimage {
+            height: 23px;
+        }
+    }
+
+    @media (min-width: 361px) {
+        #brandimage {
+            height: 35px;
+        }
+    }
+
+    @media (min-width: 769px) {
+    
+        #user-tools {
+            font-size: 14px;
+        }
+    }
+
+
+    @media (max-width: 767px) {
+
+        #header,
+        #content,
+        #footer {
+            padding: 7px !important;
+        }
+
+        #user-tools {
+            font-size: 11px;
+        }
+    }
+</style>
+
+
+{% endblock %}

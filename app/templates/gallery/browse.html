@@ -1,0 +1,23 @@
+{%extends "gallery/base.html"%} {%block content%}
+<style>
+    #headtitle{
+        font-size: 30px;
+    }
+  @media only screen and (max-width: 767px) { 
+        #headtitle{
+        font-size: 25px;
+    }
+    }
+</style>
+
+
+<div class="wrapper">
+    {%include "gallery/sidenav.html"%} {%include "gallery/navbar.html"%}
+    <div id="content" style=" margin-left: 6px;">
+        <h1 id="headtitle" style="text-shadow: 1px 1px 8px #00000030; "> <b> <a style="color:rgb(1, 1, 60); ;"
+                    href="{% url 'browsecategories'%}?s={{categories.0.year}}">{{categories.0.year}}</a> \</b>{{categories.0.name}}
+        </h1>
+        {%include "gallery/body.html"%}
+    </div>
+</div>
+{%endblock%}

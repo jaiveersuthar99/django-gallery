@@ -1,0 +1,74 @@
+<nav id="sidebar" style="padding-top: 80px; z-index: 4; overflow-y: auto; ">
+    <div class="sidebar-header ml-0 pl-1 pb-3 mb-0  d-flex d-md-none">
+        <div style="display: inline-block; margin-left: auto; " id="navbarSupportedContent">
+            <ul style="margin-left: auto;" class="navbar-nav d-inline-block">
+                <li class="nav-item">
+                    <a class="nav-link side-home-link" href="{% url 'index'%}"><i id="sidehomebtn"
+                            class="bi-house"></i>&nbsp;Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link side-contacts-link" href="{% url 'contacts'%}"><i id="sidecontactsbtn"
+                            class="bi-people"></i>&nbsp;Contacts</a>
+                </li>
+                <li class="nav-item">
+                    <a id="sideabout" class="nav-link side-about-link" href="{% url 'about'%}"><i id="sideaboutbtn"
+                            class="bi-info-circle"></i>&nbsp;About</a>
+                </li>
+
+                <form class="form-inline d-sm-inline-block navbar-search mx-1" method="GET" action="{% url 'search' %}">
+                    <div class="input-group">
+                        <input id="sidesearchbox" class="bg-light form-control border-0 small" onkeyup="ssuccess()"
+                            type="search" name="search" value="{{search}}" placeholder="Search here"
+                            aria-label="Search">
+                        <div class="input-group-append">
+                            <button id="sidesearchbtn" class="btn btn-primary py-0" type="submit" disabled><i
+                                    class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <ul class="list-unstyled components my-0 pt-0">
+        <li >
+            <!-- <a href="#homeSubmenu" id="dropdownMenuButton" data-toggle="collapse" aria-expanded="false"
+                class="dropdown-toggle">Browse in</a> -->
+                <h2>&nbsp;Browse in</h2>
+            <ul class="collapse list-unstyled show" id="homeSubmenu">
+
+                {%for year in years%}
+                <li style="font-weight: 500; height: 50px; text-align: center; display: flex; align-items: center;">
+                    <a class="px-5" href="{% url 'browsecategories'%}?s={{year.year}}">
+                        {{year.year}}
+                    </a>
+                </li>
+
+                {%endfor%}
+
+            </ul>
+            <br>
+            <hr>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<script type="text/javascript">
+    sidesearchbtn = document.getElementById("sidesearchbtn");
+    sidesearchbox = document.getElementById("sidesearchbox");
+
+    function ssuccess() {
+        if (sidesearchbox.value === "") {
+            sidesearchbtn.disabled = true;
+        } else {
+            sidesearchbtn.disabled = false;
+        }
+    }
+
+    
+</script>

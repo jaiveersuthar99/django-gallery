@@ -1,0 +1,290 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #0000009c
+}
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.navbar {
+    padding: 15px 10px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+#brandimage {
+    height: 35px;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+}
+
+.wrapper {
+    display: flex;
+    overflow-y: hidden;
+    width: 100%;
+}
+
+#sidebar {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 100;
+    background: #7386D5;
+    color: #fff;
+    transition: all 0.3s;
+    scrollbar-color: #9ca9de transparent;
+    scrollbar-width: thin;
+    overflow-y: auto;
+}
+
+#sidebar::-webkit-scrollbar {
+    width: 5px;
+    }
+
+#sidebar::-webkit-scrollbar-track {
+   background-color: transparent;
+   margin-top: 70px;
+}
+
+#sidebar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    border: 2px solid transparent;
+  background-color: #9ca9de;
+}
+
+#sidebar::-webkit-scrollbar-thumb:hover {
+  background-color: #b6c0e6;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+ul ul a {
+    font-size: 22px;
+    padding-left: 30px !important;
+}
+
+#sidebar ul li a {
+    font-size: 22px;
+    display: block;
+}
+
+.nav-item{
+    height: 50px;
+    padding: 0px;
+    padding-left: 2px;
+    display: flex;
+    align-items: center;
+}
+
+#sidebar ul li {
+    font-size: 1.1em;
+    display: block;
+}
+
+#sidebar ul li a:hover {
+    font-size: 28px;
+}
+
+#sidebar ul li.active>a,
+a[aria-expanded="true"] {
+    color: #fff;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+ul.CTAs {
+    padding: 20px;
+}
+
+ul.CTAs a {
+    text-align: center;
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+a.download {
+    background: #fff;
+    color: #7386D5;
+}
+
+a.article,
+a.article:hover {
+    background: #6d7fcc !important;
+    color: #fff !important;
+}
+
+#content {
+    padding-left: 255px;
+    padding-right: 1px;
+    min-height: 100vh;
+    width: 100%;
+    padding-top: 80px;
+    overflow-y: auto;
+    transition: all 0.3s;
+    position: relative;
+    top: 0;
+    right: 0;
+    scrollbar-width: thin;
+    scrollbar-color: #00000083 transparent;
+    scroll-margin-top: 70px;
+}
+
+#content.active {
+    padding-left: 250px;
+}
+
+#content::-webkit-scrollbar {
+    width: 8px;
+    }
+
+#content::-webkit-scrollbar-track {
+   background-color: transparent;
+   margin-top: 70px;
+}
+
+#content::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    background-color: #0000007e;
+}
+
+#content::-webkit-scrollbar-thumb:hover {
+  background-color: #000000c4;
+}
+
+
+#dropdownMenuButton {
+    font-size: 27px !important;
+}
+
+#dropdownMenuButton:hover {
+    font-size: 30px !important;
+}
+
+
+@media (max-width: 360px) {
+    #brandimage {
+        height: 23px;
+    }
+}
+
+@media (min-width: 361px) {
+    #brandimage {
+        height: 28px;
+    }
+}
+@media (min-width: 769px) {
+    #brandimage {
+        height: 35px;
+    }
+
+    
+#content {
+    height: 100%;
+    overflow-y: auto;
+    position: absolute;
+}
+
+html{
+    overflow: hidden;
+}
+
+
+#content::-webkit-scrollbar {
+    width: 8px;
+    }
+}
+
+@media (max-width: 767px) {
+
+html{
+    overflow: auto;
+}
+
+    #overlay{
+        height: 100%;
+        width: 100%;
+        background-color: black;
+        opacity: 50%;
+    }
+
+    #overlay.inactive{
+        display: none;
+    }
+   
+    #sidebar {
+        margin-left: -250px;
+        
+    }
+    #sidebar.active {
+        margin-left: 0;
+       
+    }
+    #content {
+        padding-left: 0px;
+        width: 100%;
+        padding-right: 0px;
+    }
+    #content.active {
+        padding-left: 0px;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+    
+#content::-webkit-scrollbar {
+    width: 4px;
+    }
+}

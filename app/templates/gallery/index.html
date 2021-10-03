@@ -1,0 +1,27 @@
+{%extends "gallery/base.html"%} {%block content%}
+<style>
+    .nav-home-link {
+        font-weight: bold;
+        border-bottom: 3px solid darkslateblue;
+        color: darkslateblue !important;
+        text-shadow: 2px 2px 10px #00000010;
+    }
+    
+    .side-home-link {
+        font-weight: bold;
+    }
+</style>
+<div class="wrapper">
+
+    {%include "gallery/sidenav.html"%} {%include "gallery/navbar.html"%}
+    <div id="content" style="width:100% ;">
+        <h1 style="        text-shadow: 2px 2px 10px #00000025; color: rgb(1, 1, 37); font-size: 3.2rem; font-weight: 100; ">Recents : </h1>
+        {%include "gallery/body.html"%}
+    </div>
+</div>
+
+<script>
+    document.getElementById("homebtn").className = "bi-house-fill";
+    document.getElementById("sidehomebtn").className = "bi-house-fill";
+</script>
+{%endblock%}

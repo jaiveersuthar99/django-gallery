@@ -1,0 +1,86 @@
+{%load static%}
+<div id="fullmodel" onclick="removeside()"
+    style="height: 100%; width: 100%; z-index: 3; position: absolute; background-color: rgba(0, 0, 0, 0.808); display: none;">
+</div>
+
+
+<nav style="z-index: 4;"
+    class="container-fluid navbar navbar-light navbar-expand bg-white shadow mb-4 topbar fixed-top">
+    <div style="display: inline-block"><button onclick="showmodel()"
+            class="btn btn-link d-md-none rounded-circle  mx-0 px-2.2" id="sidebarCollapse" type="button"><i
+                class="fas fa-bars"></i></button>
+        <a class="navbar-brand my-0 py-0 mx-0 px-0" href="https://www.iitr.ac.in/">&nbsp;<img id="brandimage"
+                style="width: auto; margin: 0px; padding: 0px;" src="{% static 'logo/logo.png'%}"></a>
+
+    </div>
+
+    <div style="display: inline-block; margin-left: auto; " class=" d-none d-md-inline-block "
+        id="navbarSupportedContent">
+        <ul style="margin-left: auto;" class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link nav-home-link" href="{% url 'index'%}"><i id="homebtn"
+                        class="bi-house"></i>&nbsp;Home&nbsp;</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link nav-contacts-link" href="{% url 'contacts'%}"><i id="contactsbtn"
+                        class="bi-people"></i>&nbsp;Contacts&nbsp;</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link nav-about-link" href="{% url 'about'%}"><i id="aboutbtn"
+                        class="bi-info-circle"></i>&nbsp;About&nbsp;</a>
+            </li>
+
+            <form style="width:auto; " class="form-inline  ml-auto  navbar-search" method="GET"
+                action="{% url 'search' %}">
+                <div class="input-group "
+                    style="    box-shadow: 0 0px 8px 0px rgba(0, 0, 0, 0.15);    border-radius: 5px;     ">
+                    <input id="searchbox" class="bg-light form-control border-0 small" type="search" onkeyup="success()"
+                        name="search" value="{{search}}" placeholder="Search here" aria-label="Search">
+                    <div class="input-group-append">
+                        <button id="searchbtn" class="btn btn-primary py-0" type="submit" disabled><i
+                                class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+
+        </ul>
+    </div>
+
+</nav>
+
+
+
+<script type="text/javascript">
+    searchbtn = document.getElementById("searchbtn");
+    searchbox = document.getElementById("searchbox");
+    fullmodel = document.getElementById("fullmodel");
+    sidebar = document.getElementById("sidebar");
+
+    function success() {
+        if (searchbox.value === "") {
+            searchbtn.disabled = true;
+        } else {
+            searchbtn.disabled = false;
+        }
+    }
+
+    function showmodel() {
+
+        if (fullmodel.style.display === "none") {
+            fullmodel.style.display = "block";
+            sidebar.classList.add("active");
+
+
+        }
+        else {
+            fullmodel.style.display = "none";
+            sidebar.classList.remove("active");
+
+        }
+    }
+
+    function removeside() {
+        sidebar.classList.remove("active");
+        fullmodel.style.display = "none";
+    }
+</script>

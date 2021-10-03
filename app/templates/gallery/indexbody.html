@@ -1,0 +1,903 @@
+{%load static%}
+<style>
+  .cardparent {
+    margin-bottom: 10px;
+    float: left;
+  }
+
+  .card {
+    padding: 5px;
+    margin: 0 auto;
+    float: none;
+    border-radius: .30rem;
+    box-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.20);
+  }
+
+  .card:hover {
+    box-shadow: 0px 2px 12px 2px rgba(0, 0, 0, 0.40);
+    transition: all 0.3s;
+  }
+
+  .card-text {
+    font-weight: 400;
+    padding-top: 1px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #000000;
+
+
+  }
+
+  .imageitem {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    position: relative;
+    margin-bottom: 1px;
+  }
+
+  .imageitem:hover {
+    cursor: pointer;
+  }
+
+  .videotag {
+    position: absolute;
+    color: red;
+
+    top: 50%;
+    left: 50%;
+    text-shadow: 0px 0px 8px #000000;
+  }
+
+  .videoicon {
+    position: absolute;
+    color: rgb(255, 255, 255);
+    z-index: 1;
+    top: 4%;
+    left: 8%;
+
+    text-shadow: 0px 0px 8px #000000;
+
+  }
+
+
+  .image-bar {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: auto;
+    scrollbar-width: thin;
+
+  }
+
+  .main {
+    font-size: 25px;
+    text-align: left;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .imgcard, .vcard {
+    height: 50px;
+    width: 50px;
+    margin: 1px;
+    object-fit: cover;
+    border: 2px solid transparent;
+    float: left;
+  }
+
+  .imgcard.active {
+    border-color:white;
+  }
+
+  .vcard.active {
+    border-color:white;
+  }
+
+  .imgcard:hover {
+    opacity: 50%;
+    transition: all 0.3s;
+  }
+
+  .vcard:hover {
+    opacity: 50%;
+    transition: all 0.3s;
+  }
+
+  .modal {
+    display: none;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+
+  .modal-content {
+    margin: auto;
+    display: block;
+    width: auto;
+  }
+
+  #caption {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+  }
+
+  .slides {
+    height: 100%;
+    width: 100%;
+  }
+
+  .photoSlides {
+    display: none;
+  }
+
+  .videoSlides {
+    display: none;
+  }
+
+  .slideshow-container {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    padding-top: 50px;
+    padding-bottom: 70px;
+    height: 100%;
+    width: 100%;
+    color: white;
+    justify-content: center;
+    display: flex;
+  }
+
+  .prev,
+  .next {
+    cursor: pointer;
+    position: fixed;
+    top: 50%;
+    width: auto;
+    padding-left: 20px;
+    padding-top: auto;
+    padding-bottom: auto;
+    padding-right: 20px;
+    margin-top: -25px;
+    margin-bottom: auto;
+    color: white;
+    font-weight: bold;
+    font-size: 50px;
+    transition: 0.6s ease;
+    border-radius: 50%;
+    user-select: none;
+    text-shadow: 2px 2px 7px #000000;
+  }
+
+
+  .next {
+    right: 0;
+  }
+
+  .prev {
+    left: 0;
+  }
+
+  .prev:hover,
+  .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: all 0.3s;
+  }
+
+
+  .text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+  }
+
+  .modal-content,
+  .image-bar,
+  #caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+  }
+
+  @-webkit-keyframes zoom {
+    from {
+      -webkit-transform: scale(0)
+    }
+
+    to {
+      -webkit-transform: scale(1)
+    }
+  }
+
+  @keyframes zoom {
+    from {
+      transform: scale(0)
+    }
+
+    to {
+      transform: scale(1)
+    }
+  }
+
+
+
+  .right-buttons {
+    position: fixed;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+    z-index: 1000;
+    top: -8px;
+    right: -8px;
+    font-size: 68px;
+    line-height: 0px;
+  }
+
+  .right-buttons:hover {
+    color: #bbb;
+    cursor: pointer;
+  }
+
+  .bi-download::before {
+    font-size: 35px;
+  }
+
+  .model-caption {
+    font-size: 1.3rem;
+    padding-left: 50px;
+    padding-right: 50px;
+    width: 100%;
+
+    overflow: hidden;
+
+    -webkit-text-size-adjust: auto;
+    position: absolute;
+    text-shadow: 2px 2px 7px #000000;
+    bottom: 100px;
+    text-align: center;
+  }
+
+
+
+  @media only screen and (max-width: 249px) {
+    .cardparent {
+      width: 50%;
+      float: left;
+    }
+
+    .videotag {
+      font-size: 40px;
+      margin-left: -20px;
+      margin-top: -20px;
+
+    }
+
+    .videoicon {
+      font-size: 15px;
+      text-shadow: 0px 0px 6px #000000;
+
+    }
+
+    .imageitem {
+      height: 40vw;
+      width: 40vw;
+    }
+
+    .card-text {
+      width: 40vw;
+      font-size: 8px;
+      height: 11px;
+      size: 15px;
+      padding-top: 1px;
+      text-align: center;
+    }
+  }
+
+  @media only screen and (min-width: 250px) {
+    .cardparent {
+      width: 33%;
+    }
+
+    .videotag {
+      font-size: 50px;
+      margin-top: -25px;
+
+      margin-left: -20px;
+    }
+
+    .videoicon {
+      font-size: 20px;
+      text-shadow: 0px 0px 6px #000000;
+
+    }
+
+    .imageitem {
+      height: 26vw;
+      width: 26vw;
+    }
+
+    .card-text {
+      width: 26vw;
+
+      font-size: 8px;
+      height: 11px;
+    }
+
+
+  }
+
+  @media only screen and (min-width: 320px) {
+    .modal-content {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+    }
+
+    .cardparent {
+      width: 25%;
+    }
+
+
+    .imageitem {
+      height: 20vw;
+      width: 20vw;
+    }
+
+    .card-text {
+      width: 20vw;
+      font-size: 8px;
+      height: 11px;
+    }
+
+    .model-caption {
+      font-size: 1.3rem;
+      padding-left: 3px;
+      padding-right: 3px;
+    }
+
+  }
+
+  @media only screen and (min-width: 360px) {
+
+    .slideshow-container {
+      padding-bottom: 80px;
+    }
+
+  }
+
+  @media only screen and (min-width: 480px) {
+    .modal-content {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+    }
+
+    .cardparent {
+      width: 20%;
+    }
+
+
+    .imageitem {
+      height: 16vw;
+      width: 16vw;
+    }
+
+    .card-text {
+      width: 16vw;
+      font-size: 9px;
+      size: 15px;
+      height: 12px;
+      line-height: 12px;
+
+    }
+
+
+  }
+
+  @media only screen and (min-width: 600px) {
+
+    
+    .imgcard, .vcard {
+      height: 60px;
+      width: 60px;
+    }
+
+
+    .cardparent {
+      width: 16.6%;
+    }
+
+    .model-caption {
+      font-size: 2rem;
+    }
+
+    .videotag {
+      font-size: 70px;
+      margin-top: -35px;
+
+      margin-left: -50px;
+    }
+
+    .videoicon {
+      font-size: 20px;
+      text-shadow: 0px 0px 6px #000000;
+
+    }
+
+    .card {
+      padding: 5px;
+    }
+
+    .card-text {
+      width: 13vw;
+
+    }
+
+    .imageitem {
+      width: 13vw;
+      height: 13vw;
+    }
+  }
+
+  @media only screen and (min-width: 640px) {
+
+    .cardparent {
+      width: 14%;
+    }
+
+    .model-caption {
+      font-size: 2rem;
+    }
+
+    .card {
+      padding: 5px;
+    }
+
+    .card-text {
+      width: 11vw;
+
+    }
+
+    .imageitem {
+      width: 11vw;
+      height: 11vw;
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+
+
+    .cardparent {
+      width: 20%;
+    }
+
+    .card-text {
+      width: 11vw;
+
+    }
+
+    .imageitem {
+      width: 11vw;
+      height: 11vw;
+    }
+  }
+
+  @media only screen and (min-width: 896px) {
+
+
+    .cardparent {
+      width: 16%;
+    }
+
+    .card-text {
+      width: 9vw;
+    }
+
+    .imageitem {
+      width: 9vw;
+      height: 9vw;
+    }
+  }
+
+  @media only screen and (min-width: 1024px) {
+
+
+    .cardparent {
+      width: 14%;
+    }
+
+    .card-text {
+      width: 8.5vw;
+      font-size: 10px;
+      height: 13px;
+      line-height: 13px;
+
+    }
+
+    .videotag {
+      font-size: 100px;
+      margin-left: -50px;
+      margin-top: -50px;
+
+    }
+
+    .videoicon {
+      font-size: 30px;
+
+    }
+
+    .imageitem {
+      width: 8.5vw;
+      height: 8.5vw;
+    }
+  }
+
+  @media only screen and (min-width: 1080px) {
+
+
+    .card-text {
+      width: 9vw;
+
+    }
+
+    .imageitem {
+      width: 9vw;
+      height: 9vw;
+    }
+  }
+
+
+  @media only screen and (min-width: 1200px) {
+
+    .cardparent {
+      width: 12.5%;
+    }
+
+    .card-text {
+      width: 8vw;
+      font-size: 11px;
+      height: 14px;
+      line-height: 14px;
+
+    }
+
+    .imageitem {
+      width: 8vw;
+      height: 8vw;
+    }
+  }
+
+  @media only screen and (min-width: 1280px) {
+
+
+    .card-text {
+      width: 8.4vw;
+    }
+
+    .imageitem {
+      width: 8.4vw;
+      height: 8.4vw;
+    }
+  }
+
+  @media only screen and (min-width: 1366px) {
+
+    .cardparent {
+      width: 11.1%;
+    }
+
+
+    .card-text {
+      width: 7.4vw;
+
+    }
+
+    .imageitem {
+      width: 7.4vw;
+      height: 7.4vw;
+    }
+  }
+
+  @media only screen and (min-width: 1440px) {
+
+
+    .card-text {
+      width: 7.7vw;
+      font-size: 13px;
+      height: 16px;
+      line-height: 16px;
+
+    }
+
+    .card {
+      padding: 6px;
+    }
+
+
+    .imageitem {
+      width: 7.7vw;
+      height: 7.7vw;
+    }
+  }
+
+  @media only screen and (min-width: 1600px) {
+    .card {
+      padding: 7px;
+    }
+
+    .cardparent {
+      width: 10%;
+    }
+
+    .card-text {
+      width: 7vw;
+    }
+
+    .imageitem {
+      width: 7vw;
+      height: 7vw;
+    }
+  }
+
+  @media only screen and (min-width: 1920px) {
+    .card {
+      padding: 8px;
+    }
+
+
+
+    .card-text {
+      width: 7.4vw;
+      font-size: 14px;
+      height: 17px;
+      line-height: 17px;
+
+    }
+
+    .imageitem {
+      width: 7.4vw;
+      height: 7.4vw;
+    }
+  }
+
+  @media only screen and (min-width: 2600px) {
+    .card {
+      padding: 10px;
+    }
+
+
+
+    .card-text {
+      width: 7.6vw;
+    }
+
+    .imageitem {
+      width: 7.6vw;
+      height: 7.6vw;
+    }
+  }
+</style>
+
+
+<!-- Body Part -->
+<section class="gallery-block compact-gallery">
+  <div class="main">
+    {%if videos|length == 0 and photos|length == 0%}
+    <br>
+    <br>
+    <h1 style="font-size: 60px;"> &nbsp;Nothing here</h1>
+    {%endif%}
+    {%if photos|length != 0%}
+    <h2>&nbsp;Photos :</h2>
+    <div style="display:flow-root ; ">
+      {%for photo in photos%}
+      <div class="cardparent">
+        <div class="card" style="width:min-content; ">
+          <div><img class="imageitem" src="{{photo.thumbnail.url}}" onclick="currentSlide('{{forloop.counter}}')"
+              alt="{{photo.name}}">
+            <p class="card-text" data-toggle="tooltip" title="{{photo.name}}">{{photo.name}}</p>
+          </div>
+        </div>
+      </div>
+      {%endfor%}
+    </div>
+    <hr> {%endif%}
+
+    {%if videos|length != 0%}
+    <h2>&nbsp;Videos :</h2>
+    <div style="display:flow-root ; ">
+
+      {%for video in videos%}
+      <div class="cardparent">
+        <div class="card" style="width:min-content; ">
+          <div onclick="currentVideoSlide('{{forloop.counter}}')" style="cursor: pointer;">
+
+            <i class="bi bi-play-circle videoicon"></i>
+            <img class="imageitem" src="{{video.videothumbs.url}}" onclick="currentVideoSlide('{{forloop.counter}}')"
+              alt="{{video.name}}">
+
+            <p class="card-text" data-toggle="tooltip" title="{{video.name}}">{{video.name}}</p>
+          </div>
+        </div>
+      </div>
+      {%endfor%}
+    </div>
+    <hr>
+    {%endif%}
+  </div>
+</section>
+
+<div id="myModal" class="modal" tabindex="-1" role="dialog" aria-hidden="true"
+  style=" margin-left: auto; margin-right: auto; ">
+  <span class="right-buttons" onclick="closeModel()"><i class="bi-x"></i></span>
+  <div class="slideshow-container">
+    {%for photo in photos%}
+    <div class="photoSlides slides">
+      <a href="{{photo.image.url}}" class="right-buttons"
+        style="line-height: 0px; position: fixed;float: right;right: 65px; top: 10px;  "
+        download="{{photo.image.name}}"> <i class="bi-download"></i>
+      </a>
+      <div
+        style="line-height: 0px; text-shadow: 2px 2px 7px #000000;  font-size: 36px;position: fixed;left: 4px; top: 26px;float: left;">
+        {{forloop.counter}}/{{photos|length}}</div>
+      <a class="prev" onclick="plusSlides({{forloop.counter}}-1)">&#10094;</a>
+      <div style="width: 100%; height: 100%;">
+        <a href="{{photo.image.url}}" target="_blank">
+          <img style=" object-fit: contain; height: 100%; width:100%;" src="{{photo.image.url}}" loading="lazy" >
+          <h2 class="model-caption" data-toggle="tooltip" title="{{photo.name}}"> {{photo.name}}</h2>
+        </a>
+      </div>
+      <a class="next" onclick="plusSlides({{forloop.counter}}+1)">&#10095;</a>
+    </div>
+    {%endfor%}
+  </div>
+  <div style="position: absolute;  bottom: 8px;  width: 100%;">
+    <div class="image-bar">
+      {%for photo in photos%}
+      <img class="imgcard" src="{{photo.thumbnail.url}}" alt="{{photo.name}}"
+        onclick="currentSlide('{{forloop.counter}}')">
+      {%endfor%}
+    </div>
+  </div>
+</div>
+
+
+<div id="myVideoModal" class="modal" tabindex="-1" role="dialog" aria-hidden="true"
+  style=" margin-left: auto; margin-right: auto; ">
+  <span class="right-buttons" onclick="closeVideoModel()"><i class="bi-x"></i></span>
+  <div class="slideshow-container">
+    {%for video in videos%}
+    <div class="videoSlides slides">
+      <div
+        style="line-height: 0px; text-shadow: 2px 2px 7px #000000;  font-size: 36px;position: fixed;left: 4px; top: 26px;float: left;">
+        {{forloop.counter}}/{{videos|length}}</div>
+      <a class="prev" onclick="plusVideoSlides({{forloop.counter}}-1)">&#10094;</a>
+      <div style="width: 100%; height: 100%;">
+        <a href="{{video.youtube_video_url}}" target="_blank">
+          <i class="bi bi-youtube videotag"></i>
+          <img style=" object-fit: contain; height: 100%; width:100%;" src="{{video.videothumbs.url}}" loading="lazy" >
+          <h2 class="model-caption" data-toggle="tooltip" title="{{video.name}}"> {{video.name}}</h2>
+        </a>
+      </div>
+      <a class="next" onclick="plusVideoSlides({{forloop.counter}}+1)">&#10095;</a>
+    </div>
+    {%endfor%}
+  </div>
+  <div style="position: absolute;  bottom: 5px;  width: 100%;">
+    <div class="image-bar">
+      {%for video in videos%}
+      <img class="vcard" src="{{video.videothumbs.url}}" alt="{{video.name}}"
+        onclick="currentVideoSlide('{{forloop.counter}}')">
+      {%endfor%}
+    </div>
+  </div>
+</div>
+
+
+<!-- Javascript part -->
+<script>
+  var slideIndex = 1;
+  var modal = document.getElementById("myModal");
+  function closeModel() {
+    modal.style.display = "none";
+  }
+
+  function currentSlide(n) {
+    modal.style.display = "block";
+    showSlides(slideIndex = n);
+  }
+
+  function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("photoSlides");
+    var dot = document.querySelectorAll(".imgcard")
+    if (n > slides.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = slides.length }
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+      dot[i].classList.remove("active"); 
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dot[slideIndex - 1].classList.add("active");
+  }
+
+  function plusSlides(n) {
+    showSlides(slideIndex = n);
+  }
+
+  var videoSlideIndex = 1;
+  var videoModel = document.getElementById("myVideoModal");
+
+  var slides = document.getElementsByClassName("videoSlides");
+  var videoModel = document.getElementById("myVideoModal");
+  function closeVideoModel() {
+    videoModel.style.display = "none";
+  }
+
+  function currentVideoSlide(n) {
+    videoModel.style.display = "block";
+    showVideoSlides(videoSlideIndex = n);
+  }
+
+  function showVideoSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("videoSlides");
+    var dot = document.querySelectorAll(".vcard")
+    if (n > slides.length) { videoSlideIndex = 1 }
+    if (n < 1) { videoSlideIndex = slides.length }
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+      dot[i].classList.remove("active");
+    }
+    slides[videoSlideIndex - 1].style.display = "block";
+    dot[videoSlideIndex - 1].classList.add("active");
+  }
+
+  function plusVideoSlides(n) {
+    showVideoSlides(videoSlideIndex = n);
+  }
+</script>

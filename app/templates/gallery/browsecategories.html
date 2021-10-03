@@ -1,0 +1,16 @@
+{%extends "gallery/base.html"%}
+{%block content%}
+<div class="wrapper">
+    {%include "gallery/sidenav.html"%} {%include "gallery/navbar.html"%}
+    <div id="content">
+        <h1 style="padding-left: 2px; ">Year <b>
+                <font color="rgb(1, 1, 40);">{{term}}</font>
+            </b> </h1>
+        <br> {%if categories|length == 0%}
+        <br>
+        <br>
+        <h1 style="font-size: 60px;"> &nbsp;Nothing here</h1>
+        {%endif%} {%include "gallery/categorybody.html"%}
+    </div>
+</div>
+{%endblock%}
